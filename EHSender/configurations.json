@@ -1,4 +1,0 @@
-{
-  "eventHubName": "deviceingestion",
-  "EHConnectionString": "Endpoint=sb://mosharafeh.servicebus.windows.net/;SharedAccessKeyName=Sender01;SharedAccessKey=Zs/t6jVzihXFb0WdC4=;EntityPath=deviceingestion"
-}
