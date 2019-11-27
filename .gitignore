@@ -340,4 +340,4 @@ ASALocalRun/
 healthchecksdb
 
 #configuration files
-configurations.json
+EHSender/configurations.json
