@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Bogus;
-using System.Text.Json;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace EHSender
 {
@@ -12,7 +14,9 @@ namespace EHSender
         public string generateDateJson()
         {
             DeviceReading data = generateData();
-            return JsonSerializer.Serialize<DeviceReading>(data);
+            string JsonData;
+            JsonData = JsonConvert.SerializeObject(data);
+            return JsonData;
         }
 
         public DeviceReading generateData()

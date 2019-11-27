@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <None Update="configurations.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="CreateEventHub.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
