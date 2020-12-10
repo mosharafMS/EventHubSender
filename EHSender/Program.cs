@@ -17,6 +17,8 @@ namespace EHSender
             initializeConfigurations();
             string eventHubName = config["eventHubName"];
             string connectionString = config["EHConnectionString"];
+            int latency_ms = 0;
+            int.TryParse(config["latencyMS"], out latency_ms);
 
             Console.WriteLine("Start sending to eventHub {0}", eventHubName);
 
@@ -34,6 +36,10 @@ namespace EHSender
                 int curpos = Console.CursorTop;
                 Console.SetCursorPosition(0, curpos);
                 Console.Write("{0} messages sent",counter);
+                if(latency_ms>0)
+                {
+                    System.Threading.Thread.Sleep(latency_ms);
+                }
             }
         }
 

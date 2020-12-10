@@ -25,10 +25,17 @@ namespace EHSender
             var testDevices = new Faker<DeviceReading>()
                 .RuleFor(d => d.deviceID, f => f.PickRandomParam<string>(deviceIDs))
                 .RuleFor(d => d.readingDate, f => f.Date.Recent())
-                .RuleFor(d => d._partitionKey, (f, d) => d.deviceID + "-" + d.readingDate.Year)
+                .RuleFor(d => d._partitionKey, (f, d) => d.deviceID + "-" + d.readingDate.Day)
                 .RuleFor(d => d.readingLatitude, f => f.Random.Decimal(-90, 90))
                 .RuleFor(d => d.readingLogitude, f => f.Random.Decimal(-180, 180))
-                .RuleFor(d => d.readingPressure, f => f.Random.Number(200))
+                //create correlation between the location & pressure 
+                .RuleFor(d => d.readingPressure, (f, d) =>
+                {
+                    if (d.readingLatitude <= 0 && d.readingLogitude >= 100 )
+                    { return f.Random.Number(0, 110);} 
+                    else 
+                    { return f.Random.Number(100, 200); } 
+                })
                 .RuleFor(d => d.level, f => f.Random.Number(50))
                 .RuleFor(d => d.deviceStatus, f => f.Random.Replace("?##"));
 
