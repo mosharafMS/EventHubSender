@@ -32,7 +32,7 @@ namespace EHSender
                 .RuleFor(d => d.readingPressure, (f, d) =>
                 {
                     if (d.readingLatitude <= 0 && d.readingLogitude >= 100 )
-                    { return f.Random.Number(0, 110);} 
+                    { return f.Random.Number(0, 99);} 
                     else 
                     { return f.Random.Number(100, 200); } 
                 })
