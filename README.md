@@ -1,6 +1,6 @@
 # Azure Event Hub Sender Sample Application
 
-Written in C# targeting .NET Core 3.0. The application simulate IoT workload with devices' readings. 
+Written in C# targeting .NET Core 5.0. The application simulate IoT workload with devices' readings. 
 
 **Sample Data**
 -
