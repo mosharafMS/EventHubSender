@@ -2,16 +2,18 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using System.Threading.Tasks;
-using Microsoft.Azure.EventHubs;
+using Azure.Messaging.EventHubs;
 using System.Text;
 using System.Diagnostics;
+using Azure.Messaging.EventHubs.Producer;
 
 namespace EHSender
 {
     class Program
     {
         private static IConfiguration config;
-        private static EventHubClient eventHubClient;
+        
+        private static EventHubProducerClient eventHubClient;
         public static async Task Main(string[] args)
         {
             initializeConfigurations();
@@ -45,19 +47,17 @@ namespace EHSender
 
         private static void EHconnect(string EventHubName, string EventHubConnectionString)
         {
-            var connectionStringBuilder = new EventHubsConnectionStringBuilder(EventHubConnectionString)
-            {
-                EntityPath = EventHubName
-            };
-
-            eventHubClient = EventHubClient.CreateFromConnectionString(connectionStringBuilder.ToString());
+            eventHubClient = new EventHubProducerClient(EventHubConnectionString, EventHubName);
         }
         private static async Task sendEHMessage(string partitionKey)
         {
             
             DataGenerator generator = new DataGenerator();
             var message = generator.generateDateJson();
-            await eventHubClient.SendAsync(new EventData(Encoding.UTF8.GetBytes(message)), partitionKey);
+            using EventDataBatch eventBatch = await eventHubClient.CreateBatchAsync();
+            var eventData = new EventData(Encoding.UTF8.GetBytes(message));
+            eventBatch.TryAdd(eventData);
+            await eventHubClient.SendAsync(eventBatch);
         }
 
         private static void initializeConfigurations()
