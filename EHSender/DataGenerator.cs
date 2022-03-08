@@ -32,7 +32,7 @@ namespace EHSender
                 .RuleFor(d => d.readingLatitude, f => f.Random.Decimal(-90, 90))
                 .RuleFor(d => d.readingLongitude, f => f.Random.Decimal(-180, 180))
                 //create correlation between the location & pressure 
-                .RuleFor(d => d.readingPressure, (f,d) =>  f.Random.Decimal(0,20)*(d.readingLatitude+d.readingLongitude) + f.Random.Decimal(0,10))
+                .RuleFor(d => d.readingPressure, (f,d) =>  5*(d.readingLatitude+d.readingLongitude) + f.Random.Decimal(0,10))
                 .RuleFor(d => d.level, f => f.Random.Number(50))
                 .RuleFor(d => d.deviceStatus, f => f.Random.Replace("?##"));
 
