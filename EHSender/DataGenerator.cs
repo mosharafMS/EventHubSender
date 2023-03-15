@@ -37,6 +37,13 @@ namespace EHSender
                 .RuleFor(d => d.readingLevel, (f, d) => sloop * (d.readingLongitude) + f.Random.Decimal(0, 20))
                 .RuleFor(d => d.deviceStatus, f => f.Random.Replace("?##"));
 
+            // if the current minute mod 5 is 0, then create anomaly
+            if(DateTime.Now.Minute % 5 == 0)
+            {
+                testDevices.RuleFor(d => d.readingPressure, (f, d) => sloop * (d.readingLatitude) + f.Random.Decimal(0, 20) + f.Random.Decimal(100, 500));
+                testDevices.RuleFor(d => d.readingLevel, (f, d) => sloop * (d.readingLongitude) + f.Random.Decimal(0, 20) + f.Random.Decimal(100, 500));
+            }
+
             var devices = testDevices.Generate();
             return devices;
         }
