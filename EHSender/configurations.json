@@ -1,4 +1,5 @@
 {
-  "eventHubName": "eventHubName",
-  "EHConnectionString": "connectionString"
+  "eventHubName": "",
+  "EHConnectionString": ""
 }
+
